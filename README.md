@@ -31,6 +31,7 @@ Cosurfer is a browser extension (currently only for [Chromium based browsers](<h
 ## Limitations
 
 - Currently the [innerText](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of the website's body element is sent to the LLM. If there is too much text, the context length is exceeded and the request fails silently (TODO: fix)
+  - Details on [groq API limits](https://console.groq.com/settings/limits) and [context window per model](https://console.groq.com/docs/models)
 
 ## Development
 
