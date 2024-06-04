@@ -38,18 +38,23 @@ export const sendMessageToLLM = async (
   const tokens = llama3Tokenizer.encode(message);
   console.log(`Token count of website text: ${tokens.length}`);
 
-  try {
-    const groqLLM = await initializeGroqLLM(maxTokens);
-    const promptTemplate = new PromptTemplate({
-      template: "You are a helpful assistant. {message}",
-      inputVariables: ["message"],
-    });
-    const chatChain = promptTemplate.pipe(groqLLM);
+  const maxTokensInput = 7500;
+  const groqLLM = await initializeGroqLLM(maxTokens);
 
-    const response = await chatChain.invoke({ message });
-    return response.text; // Adjust based on the actual response structure from Groq
-  } catch (error) {
-    console.error("Error communicating with LLM:", error);
-    throw new Error("Failed to get response from LLM");
+  if (tokens.length > maxTokensInput) {
+    return `Too many tokens on the website: ${tokens.length}. Summarization of long documents not implemented yet.`;
+  } else {
+    try {
+      const promptTemplate = new PromptTemplate({
+        template: "You are a helpful assistant. {message}",
+        inputVariables: ["message"],
+      });
+      const chatChain = promptTemplate.pipe(groqLLM);
+      const response = await chatChain.invoke({ message });
+      return response.text; // Adjust based on the actual response structure from Groq
+    } catch (error) {
+      console.error("Error communicating with LLM:", error);
+      throw new Error("Failed to get response from LLM");
+    }
   }
 };
