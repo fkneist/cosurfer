@@ -30,7 +30,7 @@ Cosurfer is a browser extension (currently only for [Chromium based browsers](<h
 
 ## Limitations
 
-- Currently the [innerText](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of the website's body element is sent to the LLM. If there is too much text, the context length is exceeded and the request fails silently (TODO: fix)
+- Currently the [innerText](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of the website's body element is sent to the LLM. If there is too much text for the rate limit (too many tokens), just the starting portion is sent to the LLM and the user is informed how many lines were processed.
   - Details on [groq API limits](https://console.groq.com/settings/limits) and [context window per model](https://console.groq.com/docs/models)
 - There is no "memory" in the conversation yet, so the model doesn't "remember" the last question but treats every message like the first message of a conversation.
 - Below you find a sample collection of URLs with estimated token counts of the content, useful for testing the limitations:
