@@ -1,5 +1,6 @@
 import { PromptTemplate } from "@langchain/core/prompts";
 import { ChatGroq } from "@langchain/groq";
+import llama3Tokenizer from "llama3-tokenizer-js";
 
 // Function to get the API key from Chrome storage
 const getApiKeyFromStorage = async (): Promise<string> => {
@@ -34,6 +35,9 @@ export const sendMessageToLLM = async (
   message: string,
   maxTokens: number = 500
 ): Promise<string> => {
+  const tokens = llama3Tokenizer.encode(message);
+  console.log(`Token count of website text: ${tokens.length}`);
+
   try {
     const groqLLM = await initializeGroqLLM(maxTokens);
     const promptTemplate = new PromptTemplate({
