@@ -18,6 +18,8 @@
  * http://github.com/janl/mustache.js
  */
 
+/*! js-yaml 4.1.0 https://github.com/nodeca/js-yaml @license MIT */
+
 /**
  * @license React
  * react-dom.production.min.js

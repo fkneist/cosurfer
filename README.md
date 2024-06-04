@@ -33,6 +33,15 @@ Cosurfer is a browser extension (currently only for [Chromium based browsers](<h
 - Currently the [innerText](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText) of the website's body element is sent to the LLM. If there is too much text, the context length is exceeded and the request fails silently (TODO: fix)
   - Details on [groq API limits](https://console.groq.com/settings/limits) and [context window per model](https://console.groq.com/docs/models)
 - There is no "memory" in the conversation yet, so the model doesn't "remember" the last question but treats every message like the first message of a conversation.
+- Below you find a sample collection of URLs with estimated token counts of the content, useful for testing the limitations:
+
+  | token count | url                                                        | Can cosurfer summarize it?         |
+  | ----------- | ---------------------------------------------------------- | ---------------------------------- |
+  | ca. 85      | https://example.org/                                       | Yes, completely                    |
+  | ca. 11995   | https://en.wikipedia.org/wiki/Brick                        | Yes, completely                    |
+  | ca. 16514   | https://en.wikipedia.org/wiki/Linux                        | Yes, completely                    |
+  | ca. 25346   | https://news.ycombinator.com/item?id=31261533              | Yes, completely                    |
+  | ca. 127584  | https://gutenberg.org/cache/epub/50572/pg50572-images.html | Partially, lines 1 to 5802 of 6655 |
 
 ## Development
 

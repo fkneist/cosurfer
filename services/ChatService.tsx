@@ -1,6 +1,8 @@
 import { PromptTemplate } from "@langchain/core/prompts";
 import { ChatGroq } from "@langchain/groq";
 import llama3Tokenizer from "llama3-tokenizer-js";
+import { loadSummarizationChain } from "langchain/chains";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
 // Function to get the API key from Chrome storage
 const getApiKeyFromStorage = async (): Promise<string> => {
@@ -22,7 +24,7 @@ const initializeGroqLLM = async (maxTokens: number) => {
     return new ChatGroq({
       maxTokens: maxTokens,
       apiKey,
-      modelName: "llama3-70b-8192",
+      modelName: "llama3-8b-8192",
     });
   } catch (error) {
     console.error("Error initializing GroqLLM:", error);
@@ -42,7 +44,32 @@ export const sendMessageToLLM = async (
   const groqLLM = await initializeGroqLLM(maxTokens);
 
   if (tokens.length > maxTokensInput) {
-    return `Too many tokens on the website: ${tokens.length}. Summarization of long documents not implemented yet.`;
+    const textSplitter = new RecursiveCharacterTextSplitter({
+      chunkSize: 30000,
+    });
+    const docs = await textSplitter.createDocuments([message]);
+
+    const chain = loadSummarizationChain(groqLLM, {
+      type: "map_reduce",
+      returnIntermediateSteps: true,
+    });
+
+    const indexEnd = 15;
+
+    const res = await chain.invoke({
+      input_documents: docs.slice(0, indexEnd),
+    });
+
+    let output = res.text;
+
+    if (indexEnd < docs.length + 1) {
+      // document does not fit into context window
+      const linesUsed = docs[indexEnd].metadata.loc.lines.to;
+      const linesTotal = docs[docs.length - 1].metadata.loc.lines.to;
+      output += `\n\n[Used lines 1 to ${linesUsed} of ${linesTotal} of the document]`;
+    }
+
+    return output;
   } else {
     try {
       const promptTemplate = new PromptTemplate({
