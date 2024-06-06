@@ -7,9 +7,9 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 // Function to get the API key from Chrome storage
 const getApiKeyFromStorage = async (): Promise<string> => {
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get(["groqApiKey"], (result) => {
-      if (result.groqApiKey) {
-        resolve(result.groqApiKey);
+    chrome.storage.sync.get(["apiKeys"], (result) => {
+      if (result.apiKeys.groq) {
+        resolve(result.apiKeys.groq);
       } else {
         reject(new Error("API key not found in storage"));
       }
