@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@langchain/community": "^0.2.6",
     "@langchain/core": "^0.1.63",
     "@langchain/groq": "^0.0.10",
     "@testing-library/jest-dom": "^5.16.5",
@@ -14,6 +15,7 @@
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "autoprefixer": "^10.4.19",
+    "better-sqlite3": "^11.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
     "daisyui": "^4.11.1",

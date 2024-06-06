@@ -1,8 +1,9 @@
-import { PromptTemplate } from "@langchain/core/prompts";
+import { PromptTemplate, ChatPromptTemplate } from "@langchain/core/prompts";
 import { ChatGroq } from "@langchain/groq";
 import llama3Tokenizer from "llama3-tokenizer-js";
 import { loadSummarizationChain } from "langchain/chains";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { ChatOllama } from "@langchain/community/chat_models/ollama";
 
 // Function to get the API key from Chrome storage
 const getApiKeyFromStorage = async (): Promise<string> => {
@@ -76,8 +77,24 @@ export const sendMessageToLLM = async (
         template: "You are a helpful assistant. {message}",
         inputVariables: ["message"],
       });
-      const chatChain = promptTemplate.pipe(groqLLM);
-      const response = await chatChain.invoke({ message });
+      // const promptTemplate = ChatPromptTemplate.fromMessages([
+      //   ["system", "Answer the question"],
+      //   ["human", "how much is the fish?"],
+      // ]);
+
+      const ollamaModel = new ChatOllama({
+        baseUrl: "http://localhost:11434", // Default value
+        model: "llama3:8b",
+      });
+
+      // @ts-ignore
+      const chain = promptTemplate.pipe(ollamaModel);
+
+      const response = await chain.invoke({ message });
+
+      // const chatChain = promptTemplate.pipe(groqLLM);
+      // @ts-ignore
+      // const response = await chatChain.invoke({ message });
       return response.text; // Adjust based on the actual response structure from Groq
     } catch (error) {
       console.error("Error communicating with LLM:", error);
