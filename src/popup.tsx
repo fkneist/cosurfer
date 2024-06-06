@@ -15,25 +15,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleClick = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0].id)
-        chrome.scripting.executeScript(
-          {
-            target: { tabId: tabs[0].id },
-            func: printBodyText,
-          },
-          () => {
-            console.log("Script executed");
-          }
-        );
-    });
-  };
-
-  const printBodyText = () => {
-    console.log(document.body.innerText);
-  };
-
   return (
     <div className="w-[40rem] h-[25rem]">
       {/* HEADLINE */}

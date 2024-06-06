@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import "./index.css";
+import { useState, useEffect } from "react";
 import { sendMessageToLLM } from "../services/ChatService";
 
 const OptionsForm = () => {
@@ -51,25 +52,60 @@ const OptionsForm = () => {
   };
 
   return (
-    <div>
-      <h1>Options</h1>
-      <form id="options-form" onSubmit={handleSubmit}>
-        <label>
-          Groq API Key:
-          <input
-            type="text"
-            id="groq-api-key"
-            value={groqApiKey}
-            onChange={handleChange}
-          />
-        </label>
-        <button type="submit">Save</button>
-      </form>
-      {statusMessage && (
-        <div style={{ color: isValid ? "green" : "red", marginTop: "10px" }}>
-          {statusMessage}
+    <div className="prose m-4">
+      <div className="flex flex-row justify-center">
+        <h1>Options</h1>
+      </div>
+      <form
+        id="options-form"
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4"
+      >
+        {/* OPENAI */}
+        <div>
+          <div className="label">
+            <span className="label-text">API key OpenAI:</span>
+          </div>
+          <label>
+            <input
+              type="text"
+              id="openai-api-key"
+              value="coming soon ..."
+              className="input input-bordered w-full"
+              disabled
+            />
+          </label>
         </div>
-      )}
+
+        {/* GROQ */}
+        <div>
+          <div className="label">
+            <span className="label-text">API key groq:</span>
+          </div>
+          <label>
+            <input
+              type="text"
+              id="groq-api-key"
+              value={groqApiKey}
+              onChange={handleChange}
+              className="input input-bordered w-full"
+            />
+          </label>
+        </div>
+
+        <div>
+          <a href="https://console.groq.com/keys" target="_blank">
+            Get your groq API key
+          </a>
+        </div>
+
+        <button className="btn btn-primary" type="submit">
+          Save
+        </button>
+      </form>
+      <div style={{ color: isValid ? "green" : "red" }} className="h-4">
+        {statusMessage ? statusMessage : " "}
+      </div>
     </div>
   );
 };
