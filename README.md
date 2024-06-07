@@ -22,11 +22,12 @@ Cosurfer is a browser extension (currently only for [Chromium based browsers](<h
 
 ## Tech Stack
 
-- [React](https://github.com/facebook/react)
-- [LangChain.js](https://github.com/langchain-ai/langchainjs)
-- [daisyUI](https://daisyui.com/)
+- [Vite](https://github.com/vitejs/vite): build tool
+- [React](https://github.com/facebook/react): frontend framework
+- [LangChain.js](https://github.com/langchain-ai/langchainjs): LLM orchestration
+- [daisyUI](https://daisyui.com/): styling
   - might migrate to https://github.com/daisyui/react-daisyui
-- [heroicons](https://heroicons.com/)
+- [heroicons](https://heroicons.com/): icons
 
 ## Limitations
 
