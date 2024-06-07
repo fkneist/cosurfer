@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Cosurfer is a browser extension (currently only for [Chromium based browsers](<https://en.wikipedia.org/wiki/Chromium_(web_browser)#Browsers_based_on_Chromium>)), that lets you ask questions to the website in your current browser tab using [LLM](https://en.wikipedia.org/wiki/Large_language_model)s (currently only via [groq](https://groq.com/)). It can summarize long discussions for you for example.
+Cosurfer is a browser extension (currently only for [Chromium based browsers](<https://en.wikipedia.org/wiki/Chromium_(web_browser)#Browsers_based_on_Chromium>)), that lets you ask questions to the website in your current browser tab using [LLM](https://en.wikipedia.org/wiki/Large_language_model)s. It can summarize long discussions for you for example.
 
 ## Installation
 
