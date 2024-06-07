@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@langchain/community": "^0.2.9",
     "@langchain/core": "^0.1.63",
     "@langchain/groq": "^0.0.10",
     "@tailwindcss/typography": "^0.5.13",

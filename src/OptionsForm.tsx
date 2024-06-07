@@ -10,11 +10,10 @@ const PROVIDERS = {
 
 const OptionsForm = () => {
   const [provider, setProvider] = useState("");
-  const [model, setModel] = useState({ openai: "", groq: "" });
+  const [model, setModel] = useState({ openai: "", groq: "", ollama: "" });
   const [apiKeys, setApiKeys] = useState({ openai: "", groq: "" });
   const [localSettings, setLocalSettings] = useState({
     address: "",
-    model: "",
   });
   const [statusMessage, setStatusMessage] = useState("");
   const [isValid, setIsValid] = useState<boolean | null>(null);
@@ -33,9 +32,9 @@ const OptionsForm = () => {
       ["provider", "model", "apiKeys", "localSettings"],
       (result) => {
         setProvider(result.provider || "");
-        setModel(result.model || { openai: "", groq: "" });
+        setModel(result.model || { openai: "", groq: "", ollama: "" });
         setApiKeys(result.apiKeys || { openai: "", groq: "" });
-        setLocalSettings(result.localSettings || { address: "", model: "" });
+        setLocalSettings(result.localSettings || { address: "" });
       }
     );
   }, []);
@@ -46,9 +45,7 @@ const OptionsForm = () => {
     // check if provider is groq
     if (provider === PROVIDERS.GROQ) {
       // validate the groq API key
-      const isValidKey = await validateApiKey(
-        apiKeys[provider as keyof typeof apiKeys]
-      );
+      const isValidKey = await validateApiKey();
 
       if (isValidKey) {
         chrome.storage.sync.set({ isValid: true }, () => {
@@ -71,7 +68,7 @@ const OptionsForm = () => {
     });
   };
 
-  const validateApiKey = async (key: any) => {
+  const validateApiKey = async () => {
     try {
       await sendMessageToLLM("hi", 1);
       return true;
@@ -100,8 +97,8 @@ const OptionsForm = () => {
         )}
       {provider && provider === PROVIDERS.OLLAMA && (
         <LocalModelProviderSettings
-          model={localSettings.model}
-          setModel={(model) => setLocalSettings({ ...localSettings, model })}
+          model={model[PROVIDERS.OLLAMA as keyof typeof model]}
+          setModel={(m) => setModel({ ...model, [provider]: m })}
           address={localSettings.address}
           setAddress={(address) =>
             setLocalSettings({ ...localSettings, address })
@@ -217,10 +214,8 @@ const LocalModelProviderSettings = ({
     <input
       className="input input-bordered w-full"
       type="text"
-      // value={address}
-      value={"Coming soon..."}
+      value={address}
       onChange={(e) => setAddress(e.target.value)}
-      disabled
     />
     <div className="label">
       <span className="label-text">Model</span>
@@ -228,10 +223,8 @@ const LocalModelProviderSettings = ({
     <input
       className="input input-bordered w-full"
       type="text"
-      // value={model}
-      value={"Coming soon..."}
+      value={model}
       onChange={(e) => setModel(e.target.value)}
-      disabled
     />
   </div>
 );

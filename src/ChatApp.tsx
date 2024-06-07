@@ -101,15 +101,19 @@ const ChatApp: React.FC = () => {
     === END ===
     `;
 
-    const botResponse = await sendMessageToLLM(message);
-
-    const data = {
-      reply: botResponse,
-    };
+    let reply: string = "";
+    try {
+      const botResponse = await sendMessageToLLM(message);
+      reply = botResponse || "";
+    } catch (error) {
+      console.log({ error });
+      // @ts-ignore
+      reply = error.message;
+    }
 
     const botMessage: ChatMessage = {
       id: uuidv4(),
-      text: data.reply,
+      text: reply,
       sender: "bot",
       timestamp: new Date(),
     };

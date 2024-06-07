@@ -15,10 +15,21 @@ Cosurfer is a browser extension (currently only for [Chromium based browsers](<h
 
 ## Setup
 
+You can use Cosurfer with different LLM providers remote and local.
+
+### groq
+
 - Create an account at [groq](https://groq.com/)
 - Generate an [API key](https://console.groq.com/keys)
 - Open the Cosurfer settings by clicking the gear icon
 - Insert the groq API key
+
+### ollama
+
+- Install [Ollama](https://ollama.com/), e.g. with `brew install ollama` on MacOS
+- Start Ollama with `OLLAMA_ORIGINS=chrome-extension://* ollama serve`
+- Insert Ollama address in Cosurfer settings, e.g. `http://localhost:11434`
+- Insert Ollama model in Cosusrfer settigns, e.g. `llama3:8b`
 
 ## Tech Stack
 

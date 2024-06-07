@@ -21,13 +21,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, onDelete }) => {
     setPrevMessageCount(messages.length);
   }, [messages, prevMessageCount]);
 
-  const [isValid, setIsValid] = useState(null);
+  // const [isValid, setIsValid] = useState(null);
 
-  useEffect(() => {
-    chrome.storage.sync.get("isValid", (result) => {
-      setIsValid(result.isValid);
-    });
-  }, []);
+  // useEffect(() => {
+  //   chrome.storage.sync.get("isValid", (result) => {
+  //     setIsValid(result.isValid);
+  //   });
+  // }, []);
 
   return (
     <div className="flex-grow overflow-y-auto p-4">
@@ -37,7 +37,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, onDelete }) => {
       <div ref={endOfMessagesRef} />
 
       {/* ALERTS */}
-      {!isValid && (
+      {/* TODO: re-enable for groq */}
+      {/* {!isValid && (
         <div role="alert" className="alert alert-error">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +55,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, onDelete }) => {
           </svg>
           <span>No valid API token provided. Go to settings.</span>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

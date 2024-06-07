@@ -31,9 +31,13 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage }) => {
         value={text}
         onChange={(e) => setText(e.target.value)}
         placeholder="Type your message..."
-        disabled={!isValid}
+        // disabled={!isValid}
       />
-      <button type="submit" className="btn btn-primary" disabled={!isValid}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        // disabled={!isValid}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
