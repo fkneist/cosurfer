@@ -101,12 +101,10 @@ const sendMessageToOllama = async (message: string) => {
     // @ts-ignore
     const model = models.ollama;
 
-    const localSettigns = await getValueFromStorage("localSettings");
-    // @ts-ignore
-    const address = localSettigns.address;
+    const address = (await getValueFromStorage("address")) as string;
 
     const ollamaModel = new ChatOllama({
-      baseUrl: address,
+      baseUrl: address || "",
       model,
     });
 
