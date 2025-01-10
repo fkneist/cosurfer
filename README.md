@@ -61,3 +61,7 @@ You can use Cosurfer with different LLM providers remote and local.
 - `npm install`
 - `npm run build`
 - `npm run watch`
+
+## Alternatives
+
+- As of `2024-09-23` Mozilla offers an extension for Firefox with similar capabilities, called `orbit`. See their [blog post](https://connect.mozilla.org/t5/discussions/try-orbit-by-mozilla-a-new-ai-productivity-tool/m-p/71853) and [official website](https://orbitbymozilla.com/). Extensive technical [review](https://matduggan.com/review-of-orbit-by-mozilla/) blog post by Mathew Duggan.
